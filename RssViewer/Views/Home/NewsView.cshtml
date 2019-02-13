@@ -1,0 +1,17 @@
+﻿@using RssViewer.Models
+@{
+    int num = 0;
+    string page = "btn_page" + num;
+    var news = ViewBag.News;
+    var count = Convert.ToInt32(ViewData["Count"]);
+}
+
+<table class="table">
+    <tr><th>Источник</th><th>Название новости</th><th>Описание новости</th><th>Дата публикации</th></tr>
+    @foreach (News n in news)
+    {
+        <tr><td>@n.Source.Name</td><td>@n.Title</td><td>@n.Discription</td><td>@n.PublicationDate</td></tr>
+    }
+</table>
+<br />
+

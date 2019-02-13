@@ -1,0 +1,42 @@
+﻿@Scripts.Render("~/bundles/script")
+@using RssViewer.Models
+@{
+    ViewBag.Title = "Новостная лента";
+    int num = 0;
+    string page = "btn_page" + num;
+    var news = ViewBag.News;
+    var count = Convert.ToInt32(ViewData["Count"]);
+}
+
+<br />
+@using (Html.BeginForm("Index", "Home", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+    <p>
+        Источник ленты
+        @Html.DropDownList("Source")
+    </p>
+    <div class="mt-radio-inline">
+        <label class="mt-radio">
+            <input type="radio" id="o" name="order" value="date"> <span>Сортировать по дате</span>
+            <span></span>
+        </label>
+        <label class="mt-radio">
+            <input type="radio" id="o" name="order" value="source"> <span>Сортировать по источнику</span>
+            <span></span>
+        </label>
+    </div>
+    <div>
+        <input type="submit" value="Просмотреть новости" class="btn btn-default" />
+    </div>
+}
+<br />
+
+<div id="themes-container">
+    @Html.Partial("NewsView")
+</div>
+@for (int i = 0; i < count; i++)
+{
+    num = i + 1;
+    <button value="@i" onclick="FuncOnClick(@i)" id="@page" style="margin-left:5px" class="btn btn-primary btn-success">@num</button>
+}
